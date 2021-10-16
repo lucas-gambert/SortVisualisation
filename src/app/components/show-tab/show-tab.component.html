@@ -1,5 +1,6 @@
 <div>
-    <span [(ngModel)]="tab" *ngFor="let v of tab">
+    <button (click)="this.initTab()">Générer tableau</button><br />
+    <span *ngFor="let v of tab">
         {{v}}
     </span><br />
     <div>

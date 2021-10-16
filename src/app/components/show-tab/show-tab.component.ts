@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { tab } from './../../models/tab'
-
 import { BrowserModule } from '@angular/platform-browser'
 
 @Component({
@@ -23,6 +22,7 @@ export class ShowTabComponent implements OnInit {
   }
 
   public initTab() {
+    this.tab = [];
     for (let i = 0; i < 500; i++) {
       //this.tab.push({ value: Math.floor(Math.random() * 200), active: false, color: 'blue' });
       this.tab.push(Math.floor(Math.random() * 200));
@@ -46,6 +46,7 @@ export class ShowTabComponent implements OnInit {
 
           this.tab = tab;
         }
+
       }
     }
     this.tab = tab;
