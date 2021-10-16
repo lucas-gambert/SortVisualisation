@@ -1,1 +1,7 @@
-<p>show-tab works!</p>
+<div>
+    <span *ngFor="let v of tab">
+        {{v}}
+    </span><br />
+    <button (click)="this.sort(tab)">Tri de base</button>
+    <span>Temps pris pour trier : {{time}} ms</span>
+</div>
