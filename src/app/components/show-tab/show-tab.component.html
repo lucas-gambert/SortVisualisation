@@ -1,13 +1,15 @@
 <div>
-    <button (click)="this.initTab()">Générer tableau</button><br />
-    <span *ngFor="let v of tab">
-        {{v}}
-    </span><br />
-    <div>
-        <button (click)="this.sort(tab)">Tri de base (insertion ?)</button>
-        <button style="margin-left: 10px;" (click)="this.sortBubble(tab)">Tri à bulles</button>
-        <button style="margin-left: 10px;" (click)="this.callSortFusion(tab)">Tri fusion</button>
-        <button style="margin-left: 10px;" (click)="this.callSortQuick(tab)">Tri rapide</button>
-    </div><br />
+    <button style="margin-left: 10px;" (click)="this.initTab()">Générer tableau</button>
+    <button style="margin-left: 10px;" (click)="this.sort(tab)">Tri de base (insertion ?)</button>
+    <button style="margin-left: 10px;" (click)="this.sortBubble(tab)">Tri à bulles</button>
+    <button style="margin-left: 10px;" (click)="this.callSortFusion(tab)">Tri fusion</button>
+    <button style="margin-left: 10px;" (click)="this.callSortQuick(tab)">Tri rapide</button>
+    <br />
     <span>Temps pris pour trier : {{time}} ms</span>
+</div>
+<br />
+<div>
+    <span *ngFor="let v of tab">
+        <div class="rectangle" style="margin-top: 3px;" [ngStyle]="{'width.px': v*4}"></div>
+    </span>
 </div>

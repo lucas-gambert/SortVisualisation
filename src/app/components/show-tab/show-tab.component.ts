@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { tab } from './../../models/tab'
-import { BrowserModule } from '@angular/platform-browser'
-
+import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-show-tab',
   templateUrl: './show-tab.component.html',
@@ -36,7 +35,6 @@ export class ShowTabComponent implements OnInit {
   //Mon propre algo de tri basique pour comparer (par insertion ?)
   async sort(tab) {
     let start = performance.now();
-    console.log(start);
     let smallest;
     for (let i = 0; i < tab.length; i++) {
       smallest = tab[i];
@@ -54,14 +52,12 @@ export class ShowTabComponent implements OnInit {
     }
     this.tab = tab;
     let end = performance.now();
-    console.log(end);
     this.time = end - start;
   }
 
   //Algorithme de tri à bulles
   async sortBubble(tab) {
     let start = performance.now();
-    console.log(start);
 
     let isSwapped
     do {
@@ -78,7 +74,6 @@ export class ShowTabComponent implements OnInit {
     } while (isSwapped);
 
     let end = performance.now();
-    console.log(end);
     this.time = end - start;
   }
 
@@ -130,6 +125,7 @@ export class ShowTabComponent implements OnInit {
 
     for (let i = 1; i < tab.length; i++) {
       //await this.sleep(1);
+      setTimeout(function () { }, 100000);
       if (tab[i] > pivot) {
         greaterArray.push(tab[i]);
       } else {
@@ -143,25 +139,22 @@ export class ShowTabComponent implements OnInit {
   //Appel de l'algo de fusion pour chrono à cause de la récursivité
   public callSortFusion(tab) {
     let start = performance.now();
-    console.log(start);
 
     this.sortFusion(tab);
 
     let end = performance.now();
-    console.log(end);
     this.time = end - start;
   }
 
   //Appel de l'algo de rapide pour chrono à cause de la récursivité
   public callSortQuick(tab) {
     let start = performance.now();
-    console.log(start);
 
     this.tab = this.sortQuick(tab);
 
     let end = performance.now();
-    console.log(end);
     this.time = end - start;
   }
+
 
 }
