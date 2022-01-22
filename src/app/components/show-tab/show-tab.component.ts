@@ -113,6 +113,16 @@ export class ShowTabComponent implements OnInit {
     this.tab = tab;
   }
 
+  //Appel de l'algo de fusion pour chrono à cause de la récursivité
+  public callSortFusion(tab) {
+    let start = performance.now();
+
+    this.sortFusion(tab);
+
+    let end = performance.now();
+    this.time = end - start;
+  }
+
   //Algorithme de tri rapide
   public sortQuick(tab) {
     if (tab.length < 2) {
@@ -134,16 +144,6 @@ export class ShowTabComponent implements OnInit {
     }
 
     return this.sortQuick(lesserArray).concat(pivot, this.sortQuick(greaterArray));
-  }
-
-  //Appel de l'algo de fusion pour chrono à cause de la récursivité
-  public callSortFusion(tab) {
-    let start = performance.now();
-
-    this.sortFusion(tab);
-
-    let end = performance.now();
-    this.time = end - start;
   }
 
   //Appel de l'algo de rapide pour chrono à cause de la récursivité
