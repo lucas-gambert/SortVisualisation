@@ -34,13 +34,12 @@ export class ShowTabComponent implements OnInit {
 
   //Mon propre algo de tri basique pour comparer (par insertion ?)
   async sort(tab) {
-    let start = performance.now();
     let smallest;
     for (let i = 0; i < tab.length; i++) {
       smallest = tab[i];
       for (let j = i + 1; j < tab.length; j++) {
         if (tab[j] < smallest) {
-          await this.sleep(1);
+          await this.sleep(0.01);
           let tmp = tab[j];
           tab[j] = smallest;
           tab[i] = tmp;
@@ -51,20 +50,16 @@ export class ShowTabComponent implements OnInit {
       }
     }
     this.tab = tab;
-    let end = performance.now();
-    this.time = end - start;
   }
 
   //Algorithme de tri à bulles
   async sortBubble(tab) {
-    let start = performance.now();
-
     let isSwapped
     do {
       isSwapped = false;
       for (let i = 0; i < tab.length; i++) {
         if (tab[i] > tab[i + 1]) {
-          await this.sleep(1);
+          await this.sleep(0.01);
           let tmpLeft = tab[i];
           tab[i] = tab[i + 1];
           tab[i + 1] = tmpLeft;
@@ -72,9 +67,6 @@ export class ShowTabComponent implements OnInit {
         }
       }
     } while (isSwapped);
-
-    let end = performance.now();
-    this.time = end - start;
   }
 
   //Algorithme de tri fusion
@@ -87,7 +79,7 @@ export class ShowTabComponent implements OnInit {
       this.sortFusion(rightSide)
       let leftIndex = 0, rightIndex = 0, globalIndex = 0
       while (leftIndex < leftSide.length && rightIndex < rightSide.length) {
-        await this.sleep(1);
+        await this.sleep(10);
         if (leftSide[leftIndex] < rightSide[rightIndex]) {
           tab[globalIndex] = leftSide[leftIndex];
           leftIndex++;
@@ -98,13 +90,13 @@ export class ShowTabComponent implements OnInit {
         globalIndex++;
       }
       while (leftIndex < leftSide.length) {
-        await this.sleep(1);
+        await this.sleep(10);
         tab[globalIndex] = leftSide[leftIndex];
         leftIndex++;
         globalIndex++;
       }
       while (rightIndex < rightSide.length) {
-        await this.sleep(1);
+        await this.sleep(10);
         tab[globalIndex] = rightSide[rightIndex];
         rightIndex++;
         globalIndex++;
@@ -115,45 +107,49 @@ export class ShowTabComponent implements OnInit {
 
   //Appel de l'algo de fusion pour chrono à cause de la récursivité
   public callSortFusion(tab) {
-    let start = performance.now();
-
     this.sortFusion(tab);
-
-    let end = performance.now();
-    this.time = end - start;
   }
 
   //Algorithme de tri rapide
-  public sortQuick(tab) {
-    if (tab.length < 2) {
-      return tab;
-    }
+  public async quickSortIterative(arr) {
+    let stack = [];
+    stack.push(0);
+    stack.push(arr.length - 1);
 
-    let pivot = tab[0];
-    let lesserArray = [];
-    let greaterArray = [];
+    while (stack[stack.length - 1] >= 0) {
+      await this.sleep(100);
+      let end = stack.pop();
+      let start = stack.pop();
 
-    for (let i = 1; i < tab.length; i++) {
-      //await this.sleep(1);
-      setTimeout(function () { }, 100000);
-      if (tab[i] > pivot) {
-        greaterArray.push(tab[i]);
-      } else {
-        lesserArray.push(tab[i]);
+      let pivotIndex = this.partition(arr, start, end);
+
+      if (pivotIndex - 1 > start) {
+        stack.push(start);
+        stack.push(pivotIndex - 1);
+      }
+      if (pivotIndex + 1 < end) {
+        stack.push(pivotIndex + 1);
+        stack.push(end);
       }
     }
-
-    return this.sortQuick(lesserArray).concat(pivot, this.sortQuick(greaterArray));
   }
+
+  public partition(arr, start, end) {
+    const pivotValue = arr[end];
+    let pivotIndex = start;
+    for (let i = start; i < end; i++) {
+      if (arr[i] < pivotValue) {
+        [arr[i], arr[pivotIndex]] = [arr[pivotIndex], arr[i]];
+        pivotIndex++;
+      }
+    }
+    [arr[pivotIndex], arr[end]] = [arr[end], arr[pivotIndex]]
+    return pivotIndex;
+  };
 
   //Appel de l'algo de rapide pour chrono à cause de la récursivité
   public callSortQuick(tab) {
-    let start = performance.now();
-
-    this.tab = this.sortQuick(tab);
-
-    let end = performance.now();
-    this.time = end - start;
+    this.quickSortIterative(tab);
   }
 
 
